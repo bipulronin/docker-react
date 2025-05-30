@@ -1,13 +1,13 @@
-name: Github action to deploy node server
-run-name: ${{github.actor}} deploying code changes
+name: Script to deploy React App
+run-name: ${{github.actor}} deploying latest code changes
 on: [push]
 jobs:
-  build-angular-app:
+  build-react-image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: /actions/checkout@v4
+      - uses: /actions/setup-node@v4
       - run: npm install
-      - run: npm run build
+      - run: docker login -u bipullal -p 21bdd61f4bff@d
+      - run: docker build -t bipullal/docker-react -f Dockerfile.prod .
+      - run: docker push bipullal/docker-react
